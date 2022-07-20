@@ -3,11 +3,14 @@ import s from './modal.module.css'
 import PropTypes from 'prop-types';
 class Modal extends Component  {
     componentDidMount() {
-        window.addEventListener('keydown', e => {
-           if (e.code === "Escape") {
+        document.addEventListener('keydown', e => {
+            if (e.code === "Escape") {
             this.props.closeModal()
-           }
-       })
+        }
+    })
+    }
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.props.closeModal);
     }
     onClick = (e) => {
          const {closeModal} = this.props
@@ -16,11 +19,11 @@ class Modal extends Component  {
         }
     } 
     render() {
-        const {url} = this.props
+        const { children } = this.props;
         return (
             <div onClick={this.onClick} className={s.overlay}>
                 <div className={s.modal}>
-                    <img src={url[0].largeImageURL } alt={url[0].tags } />
+                    { children }
                 </div>
             </div>
         )
@@ -29,7 +32,6 @@ class Modal extends Component  {
 
 Modal.propTypes = {
     closeModal: PropTypes.func.isRequired,
-    url: PropTypes.array.isRequired
 }
 
 export default Modal

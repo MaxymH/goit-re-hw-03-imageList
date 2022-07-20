@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 class Searchbar extends Component{
     state = {
-        inputValue: '',
+        searchbar: '',
     }
 
-    handleChange = (e) => {
-        const value = e.target.value;
+    handleChange = ({target}) => {
+        const { name, value } = target;
         this.setState({
-            inputValue: value.toLowerCase(),
-        })
+        [name]: value,
+    });
     }
 
 
@@ -21,13 +21,12 @@ class Searchbar extends Component{
         const { onSubmit} = this.props
         onSubmit(value)
         this.setState({
-            inputValue: '',
+            searchbar: '',
         })
-        e.target.children[1].value = ''
-       
     }
     render() {
-        const {onSubmitForm, handleChange} = this
+        const { onSubmitForm, handleChange } = this
+        const {q} = this.state
         return (
             <header className={s.searchbar}>
                 <form  className={s.searchForm} onSubmit={onSubmitForm}>
@@ -36,6 +35,8 @@ class Searchbar extends Component{
                     </button>
 
                     <input
+                        name='searchbar'
+                    value={this.state.searchbar}
                         onChange={handleChange}
                         className={s.input}
                         type="text"
