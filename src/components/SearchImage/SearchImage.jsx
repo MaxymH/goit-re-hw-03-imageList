@@ -100,7 +100,7 @@ export default class SearchImage extends Component  {
 
     render() {
         const { onSubmit, onClickGalleryItem, onClickLoadMore, closeModal } = this
-        const {loader, urlImage, totalHits, modal, modalUrl } = this.state
+        const {loader, urlImage, totalHits, modal } = this.state
         return (
             <>
                 <Searchbar onSubmit={onSubmit} />

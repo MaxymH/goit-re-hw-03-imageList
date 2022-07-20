@@ -26,7 +26,6 @@ class Searchbar extends Component{
     }
     render() {
         const { onSubmitForm, handleChange } = this
-        const {q} = this.state
         return (
             <header className={s.searchbar}>
                 <form  className={s.searchForm} onSubmit={onSubmitForm}>
