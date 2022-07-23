@@ -32,15 +32,12 @@ export default class SearchImage extends Component  {
         if (name !== prevState.name || page > prevState.page) {
             this.setState({ loader: 'loading' })
     
-            const { totalHits, hits } = await query(name, page);
-      
-
             try {
+                const { totalHits, hits } = await query(name, page);
                 this.setState(prevPage =>({
                     totalHits: totalHits,
                     urlImage: [...prevPage.urlImage, ...hits],
                 }))
-
                 if (totalHits === 0) {
             toast.error("No result!", {
                 autoClose: 2000
@@ -65,7 +62,6 @@ export default class SearchImage extends Component  {
     
         this.setState({
             name: data,
-            loader: 'loading',
             totalHits: null,
             urlImage: [] ,
         }) 
@@ -79,11 +75,11 @@ export default class SearchImage extends Component  {
     } 
 
     onClickGalleryItem = (id) => {
-        const urlImage = this.state.urlImage
-        const filter = urlImage.filter(f => f.id === Number(id))
-        if (filter) {
+        const { urlImage } = this.state
+        const image = urlImage.find(f => f.id === Number(id))
+        if (image) {
             this.setState({
-                modalUrl: filter[0],
+                modalUrl: image,
                 modal: true,
             })
         }

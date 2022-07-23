@@ -3,17 +3,18 @@ import s from './modal.module.css'
 import PropTypes from 'prop-types';
 class Modal extends Component  {
     componentDidMount() {
-        document.addEventListener('keydown', e => {
-            if (e.code === "Escape") {
-            this.props.closeModal()
-        }
-    })
+        document.addEventListener('keydown', this.close)
     }
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.props.closeModal);
+        document.removeEventListener('keydown', this.close)
     }
-    onClick = (e) => {
-         const {closeModal} = this.props
+    close = (e) => {
+        const { closeModal } = this.props
+        
+        if (e.code === "Escape") {
+            closeModal()
+        }
+
         if (e.target === e.currentTarget) {
             closeModal()
         }
@@ -21,7 +22,7 @@ class Modal extends Component  {
     render() {
         const { children } = this.props;
         return (
-            <div onClick={this.onClick} className={s.overlay}>
+            <div onClick={this.close} className={s.overlay}>
                 <div className={s.modal}>
                     { children }
                 </div>
