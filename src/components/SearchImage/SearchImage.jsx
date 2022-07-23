@@ -7,7 +7,7 @@ import { Oval } from 'react-loader-spinner'
   import 'react-toastify/dist/ReactToastify.css';
 import { query } from "components/Api/pixabay";
 
-const { Component } = require("react");
+import { Component } from 'react'
 
 
 
